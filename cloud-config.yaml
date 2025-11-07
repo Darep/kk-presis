@@ -1,0 +1,32 @@
+#cloud-config
+
+# Installs docker and docker compose plugin to the server
+
+apt:
+  sources:
+    docker.list:
+      source: deb [arch=amd64] https://download.docker.com/linux/ubuntu $RELEASE stable
+      keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+
+package_reboot_if_required: true
+package_update: true
+package_upgrade: true
+
+# disable_root: true
+# ssh_pwauth: false
+# ssh_deletekeys: true
+
+packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose-plugin
+
+users:
+  - name: app
+    groups: docker
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEldJlXojPrCK17MZK94hJam2Nhjwuj2wdFpZpqNGhVK Darep1
+
+final_message: 'The system is ready, after $UPTIME seconds'

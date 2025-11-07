@@ -1,0 +1,13 @@
+# Local dev
+
+services:
+  app:
+    image: bun:latest
+    command: bun run src/app.ts
+    environment:
+      - PORT=8080
+      - VERSION=dev
+    ports:
+      - 8080:8080
+    volumes:
+      - ./src:/app

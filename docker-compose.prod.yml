@@ -1,0 +1,19 @@
+# Production env
+
+services:
+  blue: &blue
+    image: ${IMAGE:-kk-presis:latest}
+    restart: unless-stopped
+    environment:
+      - PORT=8080
+      - COLOR=blue
+    ports:
+      - 3001:8080
+
+  green:
+    <<: *blue
+    environment:
+      - PORT=8080
+      - COLOR=green
+    ports:
+      - 3002:8080
