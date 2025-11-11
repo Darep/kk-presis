@@ -20,6 +20,7 @@
 *.pem
 demo.md
 *.tar
+*.tar.gz
 
 # debug
 npm-debug.log*

@@ -44,12 +44,14 @@ node1=app@81.27.99.65
 node2=app@81.27.98.202
 
 # Copy docker images like a savage
-docker save kk-presis:latest $image --platform linux/amd64 -o $sha.tar
+# echo "Saving docker image..."
+docker save kk-presis:latest $image --platform linux/amd64 | gzip > $sha.tar.gz
 
 deploy_node() {
     local node=$1
-    scp $sha.tar $node:$sha.tar
-    ssh $node "docker load -i $sha.tar && rm $sha.tar"
+    scp $sha.tar.gz $node:$sha.tar.gz
+    ssh $node "docker load < $sha.tar.gz"
+    ssh $node "rm $sha.tar.gz"
     scp docker-compose.prod.yml $node:docker-compose.yml
 }
 
